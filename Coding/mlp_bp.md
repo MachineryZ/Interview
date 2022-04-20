@@ -29,15 +29,14 @@ def forward(self, x):
 #### Backpropogation starts at loss function
 
 $$
-\begin{align}
+\begin{aligned}
 l=-y \log &\text{softmax}(\sigma(XW_1^T)W_2^T)^T \\
 X\in \mathbb R^{1\times dim1}, &W_1\in\mathbb R^{dim2\times dim1}, W_2\in\mathbb R^{ncl\times dim2}\\
 a_1=XW_1^T,&h1=\sigma(a_1),a_2=h_1W_2^T\\
-\text{Find: }& \frac{\partial l}{\partial W_1} \text{and} \frac{\partial l}{\partial W_2} 
-
-
-\end{align}
+\text{Find: }& \frac{\partial l}{\partial W_1} \text{and} \frac{\partial l}{\partial W_2}
+\end{aligned}
 $$
+
 
 
 
@@ -49,15 +48,15 @@ l=-ya_2^T+\log(\textbf{1}_{ncl\times1}^T\exp(a_2^T))\\
 dl=-ydW_2 h_1^T+\frac{\textbf{1}_{ncl\times1}^T(\exp(W_2h_1^T)\odot (dW_2h_1^T))}{\textbf{1}_{ncl\times1}^T\exp(W_2h_1^T)}\\
 dl=-ydW2h_1^T + 
 \frac{\exp(h_1W_2^T)dW_2h_1^T}  {\textbf{1}_{ncl\times1}^T\exp(W_2h_1^T)} \\
-dl = \tr(h_1^T(-y) + h_1^T\frac{\exp(h_1W_2^T)}{\textbf{1}_{ncl\times1}^T\exp(W_2h_1^T)}dW_2)\\
-dl = \tr(-h_1^Ty+h_1^T\text{softmax}(h_1W_2^T)dW_2)\\
+dl = tr(h_1^T(-y) + h_1^T\frac{\exp(h_1W_2^T)}{\textbf{1}_{ncl\times1}^T\exp(W_2h_1^T)}dW_2)\\
+dl = tr(-h_1^Ty+h_1^T\text{softmax}(h_1W_2^T)dW_2)\\
 \frac{\partial l}{\partial W_2}=(-y^T+\text{softmax}(W_2h_1^T))h_1 \\
 $$
 Or, we can have:
 $$
 \frac{\partial l}{\partial a_2}=\text{softmax}(a_2) - y \quad(*1)\\
-dl = \tr(\frac{\partial l}{\partial a_2}^Tda_2)=\tr(\frac{\partial l}{\partial a_2}^Tdh_1W_2^T+\frac{\partial l}{\partial a_2}^Th_1dW_2^T)\\
-dl = \tr({( \frac{\partial l}{\partial a_2}W_2)}^T dh_1) + \tr({(\frac{\partial l}{\partial a_2}^Th_1)}^TdW_2)\\
+dl = tr(\frac{\partial l}{\partial a_2}^Tda_2)=tr(\frac{\partial l}{\partial a_2}^Tdh_1W_2^T+\frac{\partial l}{\partial a_2}^Th_1dW_2^T)\\
+dl = tr({( \frac{\partial l}{\partial a_2}W_2)}^T dh_1) + tr({(\frac{\partial l}{\partial a_2}^Th_1)}^TdW_2)\\
 \frac{\partial l}{\partial W_2}=\frac{\partial l}{\partial a_2}^Th_1=(-y^T+\text{softmax}(W_2h_1^T))h_1\quad(*2)
 $$
 The results are the same. Obviously, the later is much simpler.
@@ -66,14 +65,14 @@ The results are the same. Obviously, the later is much simpler.
 
 On top of that, we need to get further results:
 $$
-dl_2=\tr({( \frac{\partial l}{\partial a_2}W_2)}^T dh_1) \text{  ignore } W_2 \text{ part for further formula }\\
+dl_2=tr({( \frac{\partial l}{\partial a_2}W_2)}^T dh_1) \text{  ignore } W_2 \text{ part for further formula }\\
 \frac{\partial l}{\partial h_1} = \frac{\partial l}{\partial a_2}W_2 \quad(*3)\\
-dl_2 = \tr({( \frac{\partial l}{\partial h_1})}^T d\sigma {(a_1)})\\
-dl_2=\tr({( \frac{\partial l}{\partial h_1})}^T {\sigma'(a_1)\odot da_1})\\
-dl_2=\tr({(\frac{\partial l}{\partial h_1} \odot \sigma'(a_1))}^T da_1) \\
+dl_2 = tr({( \frac{\partial l}{\partial h_1})}^T d\sigma {(a_1)})\\
+dl_2=tr({( \frac{\partial l}{\partial h_1})}^T {\sigma'(a_1)\odot da_1})\\
+dl_2=tr({(\frac{\partial l}{\partial h_1} \odot \sigma'(a_1))}^T da_1) \\
 \frac{\partial l}{\partial a_1} = \frac{\partial l}{\partial h_1} \odot \sigma'(a_1)=\frac{\partial l}{\partial a_2}W_2\odot \sigma'(a_1)\quad(*4)\\
-dl_2 = \tr({(\frac{\partial l}{\partial a_1})^T}da_1)=\tr({(\frac{\partial l}{\partial a_1})^T} XdW_1^T)\\
-dl_2=\tr({({(\frac{\partial l}{\partial a_1})^T} X)}^TdW_1) \\
+dl_2 = tr({(\frac{\partial l}{\partial a_1})^T}da_1)=tr({(\frac{\partial l}{\partial a_1})^T} XdW_1^T)\\
+dl_2=tr({({(\frac{\partial l}{\partial a_1})^T} X)}^TdW_1) \\
 \frac{\partial l}{\partial W_1}=\frac{\partial l}{\partial a_1}^TX\quad(*5)
 $$
 
