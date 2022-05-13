@@ -14,13 +14,19 @@ def forward(self, x):
 #### Basic matrix function derivatives
 
 1. Notice that, for scaler function derivatives, we can directly use chain rules to get the target variable derivative. However, for scaler-matrix function derivative, if we use chain rules, we may face to very complicated matrix-matrix function derivative. To avoid such dilemma, we will use the total derivative to get the final results.
+
 2. Some basic rules:
-   1. $d(X\pm Y)=dX\pm dY,d(XY)=dXY+XdY$
-   2. $d(X\odot Y)=dX\odot Y+X\odot dY$
-   3. $d(\sigma(X))=\sigma'(X)\odot dX$
-   4. $tr(AB) = tr(BA)$
-   5. $tr(A^T(B\odot C))=tr((A\odot B)^TC)$, $A,B,C\in \mathbb R^{n\times n} $
-   6. $df=tr(\frac{\partial f}{\partial X}^T dX)$
+   $$
+   \begin{align}
+   & d(X\pm Y) = dX \pm dY,d(XY)=d XY+X dY \\
+   &d X\odot Y=d X \odot Y+X\odot dY \\
+   &d(\sigma(X))=\sigma'(X)\odot dX \\
+   &tr(AB) = tr(BA) \\
+   &tr(A^T(B\odot C))=tr((A\odot B)^TC)$, $A,B,C\in \mathbb R^{n\times n} \\
+   &df=tr(\frac{\partial f}{\partial X}^T dX) \\
+   \end{align}
+   $$
+   
 
 3. We will use formula (6) as the very basic beginning for getting our derivatives:
 
@@ -40,7 +46,7 @@ $$
 
 
 
-In first way, we get to $\frac{\partial l}{\partial a_2}$, in a very traditional way:
+In first way, we get to $$\frac{\partial l}{\partial a_2}$$, in a very traditional way:
 $$
 l=-y\log\text{softmax}(a_2)^T\\
 l=-y(\log(\exp(a_2)) - \textbf{1}_{ncl\times ncl}\log(\exp(a_2)\textbf{1}_{ncl\times 1}))^T\\
@@ -80,27 +86,33 @@ $$
 
 #### Matrix Function Derivatives Methods:
 
-1. We need a universal formula for matrix-matrix function derivatives:
+$$
+1. \text{We need a universal formula for matrix-matrix function derivatives:} \\
 
-   $\text{vec}(dF)=\frac{\partial F}{\partial X}^T\text{vec}(dX)$
+   \text{vec}(dF)=\frac{\partial F}{\partial X}^T\text{vec}(dX) \\
 
-2. Composition of matrix-matrix function derivatives:
+2. Composition of matrix-matrix function derivatives: \\
 
-   $\text{vec}(dF)=\frac{\partial F}{\partial Y}^T\text{vec}(dY)=\frac{\partial F}{\partial Y}^T \frac{\partial Y}{\partial X}^T \text{vec}(dX)$ 
+  \text{vec}(dF)=\frac{\partial F}{\partial Y}^T\text{vec}(dY)=\frac{\partial F}{\partial Y}^T \frac{\partial Y}{\partial X}^T \text{vec}(dX) \\
 
-   And we could get use the chain rules for the complicated gradient computations
+\text{And we could get use the chain rules for the complicated gradient computations}
+$$
 
 #### Properties:
 
-1. $\text{vec}(A + B)=\text{vec}(A)+\text{vec}(B)$
-2. $\text{vec}(AXB) = (B^T \otimes A)\text{vec}(X)$
-3. $\text{vec}(A^T)=K_{mn}\text{vec}(A),A\in \mathbb R^{m\times n},K_{mn}\in \mathbb R^{mn\times mn}$, $K_{mn}$ is commutation matrix
-4. $\text{vec}(A\odot X)=\text{dial}(A)\text{vec}(X)$,  $\text{diag}(A)\in \mathbb R^{mn\times mn}$ is a diagonal use elements in A, oredered by columns
-5. $(A\otimes B)^T=A^T\otimes B^T$
-6. $\text{vec}(ab^T)=b\otimes a$
-7. $(A\otimes B)(C\otimes D)=(AC)\otimes(BD)$
-8. $K_{mn}=K^T_{nm}, K_{mn}K_{nm}=I$
-9. $K_{pm}(A\otimes B)K_{nq}=B\otimes A, A\in \mathbb R^{m\times n}, B\in \mathbb R^{p\times q}$
+$$
+&\begin{align}
+&\text{vec}(A + B)=\text{vec}(A)+\text{vec}(B) \\
+&\text{vec}(AXB) = (B^T \otimes A)\text{vec}(X) \\
+&\text{vec}(A^T)=K_{mn}\text{vec}(A),A\in \mathbb R^{m\times n},K_{mn}\in \mathbb R^{mn\times mn}, \quad K_{mn} \text{  is commutation matrix} \\
+&\text{vec}(A\odot X)=\text{dial}(A)\text{vec}(X), \text{\quad diag}(A)\in \mathbb R^{mn\times mn} \text{  is a diagonal use elements in A, oredered by columns} \\
+&A\otimes B)^T=A^T\otimes B^T \\
+&\text{vec}(ab^T)=b\otimes a \\
+&(A\otimes B)(C\otimes D)=(AC)\otimes(BD) \\
+&K_{mn}=K^T_{nm}, K_{mn}K_{nm}=I \\
+&K_{pm}(A\otimes B)K_{nq}=B\otimes A, A\in \mathbb R^{m\times n}, B\in \mathbb R^{p\times q} \\
+\end{align}
+$$
 
 
 
