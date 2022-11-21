@@ -16,16 +16,17 @@ def forward(self, x):
 1. Notice that, for scaler function derivatives, we can directly use chain rules to get the target variable derivative. However, for scaler-matrix function derivative, if we use chain rules, we may face to very complicated matrix-matrix function derivative. To avoid such dilemma, we will use the total derivative to get the final results.
 
 2. Some basic rules:
-   $$
-   \begin{align}
-   & d(X\pm Y) = dX \pm dY,d(XY)=d XY+X dY \\
-   &d X\odot Y=d X \odot Y+X\odot dY \\
-   &d(\sigma(X))=\sigma'(X)\odot dX \\
-   &tr(AB) = tr(BA) \\
-   &tr(A^T(B\odot C))=tr((A\odot B)^TC)$, $A,B,C\in \mathbb R^{n\times n} \\
-   &df=tr(\frac{\partial f}{\partial X}^T dX) \\
-   \end{align}
-   $$
+
+$$
+\begin{aligned}
+& d(X\pm Y) = dX \pm dY,d(XY)=d XY+X dY \\
+&d X\odot Y=d X \odot Y+X\odot dY \\
+&d(\sigma(X))=\sigma'(X)\odot dX \\
+&tr(AB) = tr(BA) \\
+&tr(A^T(B\odot C))=tr((A\odot B)^TC)$, $A,B,C\in \mathbb R^{n\times n} \\
+&df=tr(\frac{\partial f}{\partial X}^T dX) \\
+\end{aligned}
+$$
    
 
 3. We will use formula (6) as the very basic beginning for getting our derivatives:
@@ -101,7 +102,7 @@ $$
 #### Properties:
 
 $$
-&\begin{align}
+&\begin{aligned}
 &\text{vec}(A + B)=\text{vec}(A)+\text{vec}(B) \\
 &\text{vec}(AXB) = (B^T \otimes A)\text{vec}(X) \\
 &\text{vec}(A^T)=K_{mn}\text{vec}(A),A\in \mathbb R^{m\times n},K_{mn}\in \mathbb R^{mn\times mn}, \quad K_{mn} \text{  is commutation matrix} \\
@@ -111,7 +112,7 @@ $$
 &(A\otimes B)(C\otimes D)=(AC)\otimes(BD) \\
 &K_{mn}=K^T_{nm}, K_{mn}K_{nm}=I \\
 &K_{pm}(A\otimes B)K_{nq}=B\otimes A, A\in \mathbb R^{m\times n}, B\in \mathbb R^{p\times q} \\
-\end{align}
+\end{aligedn}
 $$
 
 
