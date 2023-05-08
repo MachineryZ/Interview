@@ -11,4 +11,4 @@ Person A has a 20-sided dice and person B has three 6-sided dice. They both roll
 3. E(3dice6) = (1 + 6) / 2 * 3 = 19.5
 4. Var(3dice6) = 3 * 35/12 = 35 / 4
 
-所以是否公平
+所以是否公平，要看对公平的定义是期望相同还是期望和方差都要相同
