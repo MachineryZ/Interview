@@ -78,6 +78,7 @@ class MyMLP():
     def loss(self, y_hat: np.ndarray, y: np.ndarray) -> np.ndarray:
         # yhat
         # cross entropy loss
+        # Return a vector, don't use sum (usually, it should be a scale)
         return None
 
     def bp(self, x: np.ndarray, y:np.ndarray) -> np.ndarray:
