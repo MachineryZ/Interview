@@ -417,6 +417,14 @@ void vector<_Tp, _Alloc>::_M_insert_aux(iterator __position, const _Tp& __x) {
 ~~~
 
 ~~~c++
+/*
+Attributes:
+_M_start // begin iterator
+_M_finish // end iterator
+_M_end_of_storage // storage end iterator
+copy_backward( , , ) // copy memory
+
+*/
 template<class _Tp, class _Alloc>
 void vector<_Tp, _Alloc>::_M_insert_aux(iterator __position, const _Tp& __x) {
   if (_M_finish != _M_end_of_storage) {
